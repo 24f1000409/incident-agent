@@ -18,3 +18,6 @@ def home():
         "status": "running",
         "message": "Observable Incident Agent"
     }
+from models.database import Base, engine
+
+Base.metadata.create_all(bind=engine)
