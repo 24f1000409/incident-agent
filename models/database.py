@@ -1,6 +1,5 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, Column, String, Text
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 DATABASE_URL = "sqlite:///database.db"
 
@@ -9,10 +8,15 @@ engine = create_engine(
     connect_args={"check_same_thread": False}
 )
 
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
-)
+SessionLocal = sessionmaker(bind=engine)
 
 Base = declarative_base()
+
+
+class Incident(Base):
+    __tablename__ = "incidents"
+
+    runId = Column(String, primary_key=True)
+    profile = Column(String)
+    status = Column(String)
+    body = Column(Text)
